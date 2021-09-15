@@ -28,7 +28,7 @@
 </head>
 <body>
 <div class="container">
-    <h1>Chuck Severance's Resume Registry</h1>
+    <h1>Resume Registry</h1>
     <?php
         $sql = "SELECT first_name,last_name,headline,profile_id FROM Profile";
         $stmt = $pdo->query($sql);
@@ -41,9 +41,9 @@
                 foreach ($rows as $row) {
                     echo("<tr><td>");
                     echo('<a href="view.php?profile_id='.$row['profile_id'].'">');
-                    echo(htmlentities($row['first_name']))." ".(htmlentities($row['last_name'])).('</a>');
+                    echo(($row['first_name']))." ".(($row['last_name'])).('</a>');
                     echo("</td><td>");
-                    echo(htmlentities($row['headline']));
+                    echo(($row['headline']));
                     echo("</td><tr>\n");
                 }
                 echo('</table>');
@@ -61,9 +61,9 @@
                 foreach ($rows as $row) {
                     echo("<tr><td>");
                     echo('<a href="view.php?profile_id='.$row['profile_id'].'">');
-                    echo(htmlentities($row['first_name']))." ".(htmlentities($row['last_name'])).('</a>');
+                    echo(($row['first_name']))." ".(($row['last_name'])).('</a>');
                     echo("</td><td>");
-                    echo(htmlentities($row['headline']));
+                    echo(($row['headline']));
                     echo("</td><td>");
                     echo('<a href="edit.php?profile_id='.$row['profile_id'].'">Edit</a>');
                     echo(' <a href="delete.php?profile_id='.$row['profile_id'].'">Delete</a>');
@@ -71,6 +71,8 @@
                 echo('</table>');
             }
             echo('<p><a href="add.php">Add New Entry</a></p>');
+            echo('<p><a href="search.php">Search name</a></p>');
+            echo('<p><a href="changepw.php">Change Password</a>');
         }
 
     ?>

@@ -1,21 +1,21 @@
 <?php
     session_start();
     require_once "config.php";
-    $salt = 'XyZzy12*_';
-    $stored_hash = '1a52e17fa899cf40fb04cfc42e6352f1';
     if(isset($_POST['cancel'])){
        header("Location: index.php");
        return;
     }
     if(isset($_POST['email']) || isset($_POST['pass'])){
         if(strlen($_POST['email']) >= 1 && strlen($_POST['pass']) >= 1 && strpos($_POST['email'],'@') == true) {
-            $check = hash('md5', $salt.$_POST['pass']);
-
-            $stmt = $pdo->prepare('SELECT user_id, name FROM users WHERE email = :em AND password = :pw');
-
-            $stmt->execute(array( ':em' => $_POST['email'], ':pw' => $check));
-
+            $check = $_POST['pass'];
+            $sql = "SELECT * FROM users WHERE email = '".$_POST['email'] . "' AND password = '" . $check . "'";
+            $stmt = $pdo->query($sql);
             $row = $stmt->fetch(PDO::FETCH_ASSOC);
+//            $stmt = $pdo->prepare('SELECT user_id, name FROM users WHERE email = :em AND password = :pw');
+//
+//            $stmt->execute(array( ':em' => $_POST['email'], ':pw' => $check));
+//
+//            $row = $stmt->fetch(PDO::FETCH_ASSOC);
             if ($row !== false ) {
                 $_SESSION['name'] = $row['name'];
                 $_SESSION['user_id'] = $row['user_id'];
@@ -58,7 +58,7 @@
             unset($_SESSION['error']);
         }
     ?>
-    <form method="POST" action="login.php">
+    <form method="POST" action="<?php echo($_SERVER["SCRIPT_NAME"]);?>">
         <label for="email"><strong>Email</strong></label>
         <input type="text" name="email" id="email"><br>
         <label for="password"><strong>Password</strong></label>

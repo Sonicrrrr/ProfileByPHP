@@ -70,7 +70,7 @@ if(isset($_POST['save'])){
     }
 
     ?>
-    <form method="POST" action="edit.php">
+    <form method="POST" action="<?php echo($_SERVER["SCRIPT_NAME"]);?>">
         <?php
             $stmt = $pdo->prepare("SELECT profile_id,first_name,last_name,email,headline,summary FROM Profile WHERE profile_id=:pid");
             $stmt->execute(array(':pid' => $_GET['profile_id']));

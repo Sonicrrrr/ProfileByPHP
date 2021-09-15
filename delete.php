@@ -51,7 +51,7 @@
         <h1>Deleting Profile</h1>
         <p>First Name : <?php echo $fn ?></p>
         <p>Last Name : <?php echo $ln ?></p>
-        <form method="POST">
+        <form method="POST" action="<?php echo($_SERVER["SCRIPT_NAME"]);?>">
             <input
                     type="hidden"
                     name="profile_id"

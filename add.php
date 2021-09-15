@@ -22,15 +22,24 @@
 
         }
         else{
-            $stmt = $pdo->prepare('INSERT INTO Profile(user_id,first_name,last_name,email,headline,summary) VALUES (:uid,:fn,:ln,:em,:he,:su)');
-            $stmt->execute(array(
-                ':uid' => $_SESSION['user_id'],
-                ':fn' => $_POST['first_name'],
-                ':ln' => $_POST['last_name'],
-                ':em' => $_POST['email'],
-                ':he' => $_POST['headline'],
-                ':su' => $_POST['summary']
-            ));
+            $sql = "INSERT INTO Profile (user_id, first_name, last_name,email,headline,summary) VALUES (
+            '".$_SESSION['user_id']."',
+            '" . $_POST['first_name'] . "',
+            '" . $_POST['last_name'] . "',
+            '" . $_POST['email'] . "',
+            '" . $_POST['headline'] . "',
+            '" . $_POST['summary'] . "')";
+            $stmt = $pdo->query($sql);
+
+//            $stmt = $pdo->prepare('INSERT INTO Profile(user_id,first_name,last_name,email,headline,summary) VALUES (:uid,:fn,:ln,:em,:he,:su)');
+//            $stmt->execute(array(
+//                ':uid' => $_SESSION['user_id'],
+//                ':fn' => $_POST['first_name'],
+//                ':ln' => $_POST['last_name'],
+//                ':em' => $_POST['email'],
+//                ':he' => $_POST['headline'],
+//                ':su' => $_POST['summary']
+//            ));
             $_SESSION['success']="Profile added";
             header("Location:index.php");
             return;
@@ -69,7 +78,7 @@
             }
 
         ?>
-        <form method="POST" action="add.php">
+        <form action="<?php echo($_SERVER["SCRIPT_NAME"]);?>" method="POST" action="add.php">
             <p
                 <label>First Name :</label>
                 <input type="text" name="first_name" size="60"><br>
